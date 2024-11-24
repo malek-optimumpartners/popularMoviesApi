@@ -1,0 +1,16 @@
+{
+  "name": "popularMoviesApi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "cls && node index.js && npx bddgen && npx playwright test"
+  },
+  "devDependencies": {
+    "playwright-bdd": "^7.5.0"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "node-fetch": "^3.3.2"
+  }
+}

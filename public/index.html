@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Zone</title>
+  <script>
+    const cssFile = 'styles.css';
+    const randomString = new Date().getTime(); 
+    const linkElement = document.createElement('link');
+    linkElement.rel = 'stylesheet';
+    linkElement.href = `${cssFile}?v=${randomString}`;
+    document.head.appendChild(linkElement);
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>Optimum Partners Movie Zone</h1>
+  <p>Malek Tubaishat movie reviews, trailers, and ratings!</p>
+</header>
+
+<nav>
+  <a href="#home">Home</a>
+  <label for="rating">Select Rating:</label>
+  <select id="rating" onchange="fetchByRating(this.value)">
+    <option value="10">10</option>
+    <option value="9">9</option>
+    <option value="8">8</option>
+    <option value="7">7</option>
+    <option value="6">6</option>
+    <option value="5">5</option>
+    <option value="4">4</option>
+    <option value="3">3</option>
+    <option value="2">2</option>
+    <option value="1">1</option>
+  </select>
+  <a href="http://malek.is-great.net/?i=1">Contact</a>
+</nav>
+
+<main id="movies-container">
+
+</main>
+<script>
+  // Function to fetch popular movies
+  async function fetchPopularMovies() {
+    try {
+      const response = await fetch('/movies/popular');
+      const data = await response.json();
+      
+      // Display the movies in the DOM
+      const container = document.getElementById('movies-container');
+      container.innerHTML = '';  // Clear any previous content
+
+      data.results.forEach(movie => {
+        const movieDiv = document.createElement('div');
+        movieDiv.classList.add('card');
+        var htm =`<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">`;
+        htm += `<h3>${movie.title} (${String(movie.vote_average).substr(0, 3)})</h3>`;
+        htm+=`<p>${movie.overview}</p>`;
+        htm+='<a href="#" class="btn">Read More</a>';
+        htm+='</div>';
+
+        movieDiv.innerHTML = htm;
+        container.appendChild(movieDiv);
+      });
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  }
+
+  async function fetchByRating(rating) {
+    try {
+      const response = await fetch(`/movies/get_by_vote_average?vote_average=${rating}`);
+      const data = await response.json();
+      
+      // Display the movies in the DOM
+      const container = document.getElementById('movies-container');
+      container.innerHTML = '';  // Clear any previous content
+
+      data.results.forEach(movie => {
+        const movieDiv = document.createElement('div');
+        movieDiv.classList.add('card');
+        var htm =`<img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">`;
+        htm += `<h3>${movie.title} (${String(movie.vote_average).substr(0, 3)})</h3>`;
+        htm+=`<p>${movie.overview}</p>`;
+        htm+='<a href="#" class="btn">Read More</a>';
+        htm+='</div>';
+
+        movieDiv.innerHTML = htm;
+        container.appendChild(movieDiv);
+      });
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  }
+
+  // Call the function when the page loads
+  fetchPopularMovies();
+</script>
+
+<footer>
+  <p>&copy; 2024 Optimum partners. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
