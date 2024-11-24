@@ -37,3 +37,4 @@ Restart the server and test the complete functionality by visiting http://localh
 Expected Outcome
 A web page that displays movie cards, filtered by the vote_average parameter.
 Each card should show the movie's title, rating, and poster image.
+

@@ -52,3 +52,4 @@ router.get('/get_by_vote_average', async (req, res) => {
 });
 
 export default router;
+

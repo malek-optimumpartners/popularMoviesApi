@@ -32,8 +32,9 @@ import {
       this.page = await this.browser.newPage();
       await this.page.goto(urlString);
       this.basePage = new BasePage(this.page);
-    }
+    } 
   
     
   }
+  
   
